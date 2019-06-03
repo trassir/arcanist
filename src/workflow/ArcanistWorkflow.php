@@ -1179,12 +1179,23 @@ abstract class ArcanistWorkflow extends Phobject {
   final protected function loadRevisionBundleFromConduit(
     ConduitClient $conduit,
     $revision_id) {
+    $revision_raw = $conduit->callMethodSynchronous('differential.revision.search',
+      array('constraints' =>
+        array(
+          'ids' => array(intval($revision_id)),
+        )
+      ));
+    $diff_phid = head($revision_raw['data'])['fields']['diffPHID'];
 
-    return $this->loadBundleFromConduit(
-      $conduit,
-      array(
-      'revisionIDs' => array($revision_id),
-    ));
+    $diff_raw = $conduit->callMethodSynchronous('differential.diff.search',
+      array('constraints' =>
+        array(
+          'phids' => array($diff_phid),
+        )
+      ));
+    $diff_id = head($diff_raw['data'])['id'];
+
+    return $this->loadDiffBundleFromConduit($conduit, $diff_id);
   }
 
   final private function loadBundleFromConduit(
