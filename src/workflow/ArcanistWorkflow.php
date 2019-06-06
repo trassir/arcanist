@@ -1279,6 +1279,10 @@ abstract class ArcanistWorkflow extends Phobject {
       throw new Exception(pht('Missing VCS support.'));
     }
 
+    if (empty($this->changeCache[$path]) && phutil_is_windows() && ($is_git || $is_hg)) {
+      $path = str_replace('\\', '/', $path);
+    }
+
     if (empty($this->changeCache[$path])) {
       if ($is_git || $is_hg) {
         // This can legitimately occur under git/hg if you make a change,
