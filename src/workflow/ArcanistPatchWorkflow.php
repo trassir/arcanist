@@ -83,6 +83,9 @@ EOTEXT
           'bookmark' => true,
         ),
       ),
+      'allow-untracked' => array(
+        'help' => pht('Skip checks for untracked files in the working copy.'),
+      ),
       'nocommit' => array(
         'supports' => array('git', 'hg'),
         'help' => pht(

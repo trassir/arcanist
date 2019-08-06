@@ -923,8 +923,9 @@ abstract class ArcanistWorkflow extends Phobject {
     $uncommitted = array_diff($uncommitted, $unstaged);
     $uncommitted = array_diff($uncommitted, $externals);
 
-    $untracked = $api->getUntrackedChanges();
-    if (!$this->shouldRequireCleanUntrackedFiles()) {
+    if ($this->shouldRequireCleanUntrackedFiles()) {
+      $untracked = $api->getUntrackedChanges();
+    } else {
       $untracked = array();
     }
 
