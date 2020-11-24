@@ -725,7 +725,7 @@ final class ArcanistBundle extends Phobject {
           "%s\n",
           pht("Downloading binary data for '%s'...", $name));
       } else {
-        $console->writeErr("%s\n", pht('Downloading binary data...'));
+        $console->writeErr("%s\n", pht('Downloading binary data %s...', $phid));
       }
       $data_base64 = $this->conduit->callMethodSynchronous(
         'file.download',

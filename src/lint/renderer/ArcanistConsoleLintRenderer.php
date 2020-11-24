@@ -228,8 +228,10 @@ final class ArcanistConsoleLintRenderer extends ArcanistLintRenderer {
     $cursor = $start + $old_impact;
     $foot = min(count($old_lines), $cursor + $context);
     for ($ii = $cursor; $ii <= $foot; $ii++) {
+      $x = $ii-1;
+      if ($x<0) $x = 0;
       $out[] = array(
-        'text' => $old_lines[$ii - 1],
+        'text' => $old_lines[$x],
         'number' => $ii,
         'chevron' => ($ii == $cursor),
       );
